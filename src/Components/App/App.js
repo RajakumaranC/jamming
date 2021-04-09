@@ -12,13 +12,15 @@ class App extends React.Component{
     this.state = {
       searchResults: [],
       playlistName: "New PlayList",
-      playlistTracks: []
+      playlistTracks: [],
+      isLoggedIn: false
     }
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+    this.HandleLoginClick = this.HandleLoginClick.bind(this);
   }
 
   addTrack(track){
@@ -64,16 +66,36 @@ class App extends React.Component{
     });
   }
 
+  HandleLoginClick(){
+    Spotify.getAccessToken();
+    this.setState({
+      isLoggedIn: true
+    })
+  }
+
   render(){
+    let MainPage;
+    if(!this.state.isLoggedIn)
+    {
+      MainPage = (<div className='LoginButtonContainer'><button className='LoginButton' onClick={this.HandleLoginClick}>Log In</button>
+      <p>Welcome to Jamming app! You will need to login to Spotify platform to use this applicaiton. Kindly login using the button above. </p></div>);
+    }
+    else {
+      MainPage = (<div className="HomePage">
+      <SearchBar onSearch={this.search} />
+      <div className="App-playlist">
+        <SearchResults searchResults = {this.state.searchResults} onAdd = {this.addTrack} /> 
+        <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} /> 
+      </div>
+      </div>);
+    }
+
+
     return (
       <div>
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
       <div className="App">
-        <SearchBar onSearch={this.search} />
-        <div className="App-playlist">
-          <SearchResults searchResults = {this.state.searchResults} onAdd = {this.addTrack} /> 
-          <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} /> 
-        </div>
+      {MainPage}
       </div>
     </div>
     )

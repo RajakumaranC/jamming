@@ -6,6 +6,7 @@ html,
 
 html {
   font-size: 18px;
+  
 }
 
 h1 {
@@ -28,6 +29,7 @@ h2 {
 
 .App {
   height: 100%;
+  
   padding: 0 17% 10% 17%;
   background-image: url('./background_photo_desktop.jpg');
   background-size: cover;
@@ -42,6 +44,28 @@ h2 {
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.LoginButtonContainer{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+}
+
+.LoginButton{
+  margin: 2rem auto;
+  cursor: pointer;
+    width: 8.11rem;
+    padding: .77rem 0;
+    border-radius: 54px;
+    background-color: #010c3f;
+    text-align: center;
+    font-size: .833rem;
+    transition: background-color .25s;
+    border: 0px;
+    color: #fff;
+    font-weight: 500;
 }
 
 @media only screen and (max-width: 1020px) {
