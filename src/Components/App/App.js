@@ -67,10 +67,13 @@ class App extends React.Component{
   }
 
   HandleLoginClick(){
-    Spotify.getAccessToken();
-    this.setState({
-      isLoggedIn: true
-    })
+    let accessToken = Spotify.getAccessToken();
+    if(accessToken){
+      this.setState({
+        isLoggedIn: true
+      })
+    }
+    
   }
 
   render(){
@@ -99,7 +102,9 @@ class App extends React.Component{
       </div>
     </div>
     )
+    
   }
+  
 }
   
 
